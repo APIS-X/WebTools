@@ -60,3 +60,108 @@ export const formatMoney = data=> {
 export function isNumber(data) {
   return +data === +data;
 }
+
+/**
+ * 生成独立ID
+ * @param {Number} n 生成的独立id的长度
+ * @param {Array} arr 和将要生成的随机数作比较去重的id集合
+ * @param {String} comb 可用于生成随机数id的字符集合
+ */
+export const getUniqueId = (arr = [], n = 8, comb = '123456789') => {
+  const random = n => {
+    let str = comb;
+    let result = '';
+    for (let i = 0; i < n; i++) {
+      result += str[parseInt(Math.random() * str.length)];
+    }
+
+    if (arr.includes(result)) {
+      random(n);
+    } else {
+      return result;
+    }
+  };
+
+  return random(n);
+};
+
+/**
+ * 函数去抖
+ * @param {Function} fn 
+ * @param {Number} delay
+ */
+export const debance = (fn, delay)=> {
+  let t = null;
+  return function() {
+      let that = this;
+      let args = arguments;
+      clearTimeout(t);
+      t = setTimeout(function() {
+          fn.apply(context, args);
+      }, delay);
+  }
+}
+
+/**
+ * 函数节流
+ * @param {Function} fn 
+ * @param {Number} delay 
+ */
+export const throttle = (fn, delay)=> {
+  let preTime = Date.now();
+  return function() {
+      let that = this;
+      let args = arguments;
+      let nowTime = Date.now();
+      if (preTime + delay < nowTime) {
+          fn.apply(that, args);
+          preTime = nowTime;
+      }
+  }
+}
+
+/**
+ * 生成随机数
+ * @param {Number} min 随机数左区间
+ * @param {Nmuber} max 随机数右区间
+ * @param {String} mode 随机数要求(m, n]: 'leftOpen' | [m, n): 'rightOpen' | (m, n) : 'open' | [m, n] : 'close'
+ */
+export const getRandom = (min, max, mode = 'rightOpen')=> {
+  let r;
+
+  switch(mode) {
+    case 'leftOpen': {  // (m, n]
+      r = Math.random()*(max - min + 1) + min - 1;
+      while(r < min) {
+        r = Math.random()*(max - min + 1) + min - 1;
+      }
+      break;
+    }
+    case 'rightOpen': { // [m, n)
+      r = Math.random()*(max - min) + min;
+      break;
+    }
+    case 'open': {  // (m, n)
+      r = Math.random()*(max - min) + min;
+      while(r === min) {
+        r = Math.random()*(max - min) + min;
+      }
+      break;
+    }
+    case 'close': { // [m, n]
+      r = Math.random()*(max - min + 1) + min;
+      while(r > max) {
+        r = Math.random()*(max - min + 1) + min;
+      }
+      break;
+    }
+  }
+  return r;
+}
+
+/**
+ * 生成随机整数
+ * @param {Number} min 随机数左区间
+ * @param {Nmuber} max 随机数右区间
+ */
+export const getRandomInt = (min, max)=> Math.round(Math.random()*(max-min)) + min;
