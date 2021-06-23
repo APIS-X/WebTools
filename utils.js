@@ -169,7 +169,7 @@ export const getRandom = (min, max, mode = 'rightOpen') => {
 /**
  * 生成随机整数
  * @param {Number} min 随机数左区间
- * @param {Nmuber} max 随机数右区间
+ * @param {Number} max 随机数右区间
  */
 export const getRandomInt = (min, max) =>
   Math.round(Math.random() * (max - min)) + min;
