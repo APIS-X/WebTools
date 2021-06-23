@@ -204,15 +204,15 @@ export const getUniqueId = (arr = [], n = 8, comb = '123456789') => {
  */
 export const getSearchQuery = (str) => {
   if (!str) return;
-  let arrStrs = decodeURIComponent(str).split('&');
-  let objStrs = {};
-  for (let i = 0, len = arrStrs.length; i < len; i++) {
-    const [key, value] = arrStrs[i].split('=');
+  let arrStr = decodeURIComponent(str).split('&');
+  let objStr = {};
+  for (let i = 0, len = arrStr.length; i < len; i++) {
+    const [key, value] = arrStr[i].split('=');
     if (key !== undefined && key !== '') {
-      objStrs[key] = value;
+      objStr[key] = value;
     }
   }
-  return objStrs;
+  return objStr;
 };
 
 /**
