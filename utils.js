@@ -263,3 +263,10 @@ export const EventUtils = {
     }
   },
 };
+/**
+ * 格式化字符串JSON
+ * @param {*} str
+ * @returns
+ */
+const formatStringJson = (str = '') =>
+  str.replace(/(\s*?{\s*?|\s*?,\s*?)(['"])?([a-zA-Z0-9]+)(['"])?:/g, '$1"$3":')
